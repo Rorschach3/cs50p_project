@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter as tk
 from PIL import Image, ImageTk
 
-
+levels = 9
 current_question_index = 0
 score = 0
 user_answers = {}
@@ -23,22 +23,26 @@ image_urls = [
 
 
 def click(label, photo):
-    global current_question_index, current_photo
-    current_question_index = (current_question_index + 1) % len(image_urls)
+    global current_question_index, current_photo, levels
+    if levels > 0:
+        current_question_index = (current_question_index + 1) % len(image_urls)
 
-    # Load the new image
-    image_path = image_urls[current_question_index]
-    new_image = Image.open(image_path)
-    new_photo = ImageTk.PhotoImage(new_image)
+        # Load the new image
+        image_path = image_urls[current_question_index]
+        new_image = Image.open(image_path)
+        new_photo = ImageTk.PhotoImage(new_image)
 
-    # Update the label and photo with the new image
-    label.configure(image=new_photo)
-    label.image = new_photo
+        # Update the label and photo with the new image
+        label.configure(image=new_photo)
+        label.image = new_photo
+
+        levels -= 1
+
+window = tk.Tk()
+window.geometry('1000x1200')
+window.title('Assessment Test')
 
 def main():
-    window = tk.Tk()
-    window.title("Image Viewer")
-
     # Load the initial image
     initial_image_path = image_urls[current_question_index]
     initial_image = Image.open(initial_image_path)
@@ -56,12 +60,12 @@ def main():
             window,
             text=options[index],
             command=lambda: click(label, initial_image),
-            font=("Helvetica Neue", 30),
+            font=("Helvetica Neue", 25),
             fg="white",
             bg="black",
             activeforeground="white",
             activebackground="black",
-            width=5
+            width=5,
             )
         button.pack(side=LEFT)
 
