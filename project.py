@@ -3,27 +3,49 @@ import tkinter as tk
 from PIL import Image, ImageTk
 
 
-
 current_question_index = 0
 score = 0
 user_answers = {}
+current_photo = None
+label = None
+
+image_urls = [
+	"./images/image1.jpg",
+	"./images/image2.jpg",
+	"./images/image3.jpg",
+	"./images/image4.jpg",
+	"./images/image5.jpg",
+	"./images/image6.jpg",
+	"./images/image7.jpg",
+	"./images/image8.jpg",
+	"./images/image9.jpg"
+	]
 
 
-def click():
-    print("You clicked the button!")
+def click(label, photo):
+    global current_question_index, current_photo
+    current_question_index = (current_question_index + 1) % len(image_urls)
 
+    # Load the new image
+    image_path = image_urls[current_question_index]
+    new_image = Image.open(image_path)
+    new_photo = ImageTk.PhotoImage(new_image)
+
+    # Update the label and photo with the new image
+    label.configure(image=new_photo)
+    label.image = new_photo
 
 def main():
     window = tk.Tk()
     window.title("Image Viewer")
 
-    # Load the image
-    image_path = "./images/image1.jpg"
-    image = Image.open(image_path)
-    photo = ImageTk.PhotoImage(image)
+    # Load the initial image
+    initial_image_path = image_urls[current_question_index]
+    initial_image = Image.open(initial_image_path)
+    initial_photo = ImageTk.PhotoImage(initial_image)
 
     # Create a label to display the image
-    label = tk.Label(window, image=photo)
+    label = tk.Label(window, image=initial_photo)
     label.pack()
 
     options = ["A", "B", "C", "D"]
@@ -33,7 +55,7 @@ def main():
         button = Button(
             window,
             text=options[index],
-            command=click,
+            command=lambda: click(label, initial_image),
             font=("Helvetica Neue", 30),
             fg="white",
             bg="black",
