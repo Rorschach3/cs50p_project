@@ -1,0 +1,10 @@
+{
+    "name": "myAtlasClusterEDU",
+    "type": "mongodb-atlas",
+    "config": {
+        "clusterName": "myAtlasClusterEDU",
+        "readPreference": "primary",
+        "wireProtocolEnabled": false
+    },
+    "version": 1
+}
