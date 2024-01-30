@@ -1,22 +1,22 @@
 from tkinter import *
 
 
-food = ["A", "B", "C", "D"]
+questions = ["A: 0.33", "B: 10", "C: 2.33", "D: 1.22"]
 
 window = Tk()
 
 x = IntVar()
 
-for index in range(len(food)):
+for index in range(len(questions)):
     radiobutton = Radiobutton(
         window,
-        text=food[index],
+        text=questions[index],
         variable=x,
         value=index,
-        padx=25,
+        padx=15,
         font=("Arial", 50),
         indicatoron=0,
-        width=25
+        width=5
         )
 
 

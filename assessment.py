@@ -1,66 +1,52 @@
+from tkinter import *
 import tkinter as tk
 from PIL import Image, ImageTk
-import requests
 from io import BytesIO
-
-questions = [
-    {
-        "question": "https://i.ibb.co/HK75mN5/image1.jpg",
-        "answers": ["Option A", "Option B", "Option C", "Option D"],
-        "correct_answer": "Option A"
-    },
-    {
-        "question": "https://i.ibb.co/SsyLNrM/image2.jpg",
-        "answers": ["Option X", "Option Y", "Option Z", "Option W"],
-        "correct_answer": "Option X"
-    },
-    # Add more questions as needed
-]
+from questions import problems
 
 current_question_index = 0
-correct_answers = 0
+score = 0
+user_answers = {}
 
 
 def next_question():
     global current_question_index
     current_question_index += 1
-    if current_question_index < len(questions):
-        update_question()
-    else:
-        show_result()
+    update_question()
 
-def main():
-    
+
+def select_option():
+    selected_option = selected_option.get()
+    user_answers[current_question_index] = selected_option
     check_answer()
 
 
 def check_answer():
-    selected_answer = selected_option.get()
-    correct_answer = questions[current_question_index]["correct_answer"]
+    selected_answer = user_answers.get(current_question_index, "")
+    correct_answer = problems[1][current_question_index]
     if selected_answer == correct_answer:
-        global correct_answers
-        correct_answers += 1
+        global score
+        score += 1
     next_question()
 
 
 def update_question():
-    question_data = questions[current_question_index]
-    image_url = question_data["question"]
-    answers = question_data["answers"]
+    if current_question_index < len(problems[0]):
+        image_data = problems[2][int(current_question_index)]
+        image = Image.open(image_data)
+        image_display = ImageTk.PhotoImage(image)
+        label.configure(image=image_display)
+        label.image = image_display
 
-    image_data = requests.get(image_url).content
-    image_original = Image.open(BytesIO(image_data))
-    image_display = ImageTk.PhotoImage(image_original)
-    label.configure(image=image_display)
-    label.image = image_display
+        for i, answer in enumerate(problems[0][current_question_index]):
+            radio_buttons[i].config(text=answer, value=answer)
 
-    for i, answer in enumerate(answers):
-        radio_buttons[i].config(text=answer, value=answer)
+    else:
+        show_result()
 
 
 def show_result():
-    result_label.config(text=f"Your Score: {correct_answers}/{len(questions)}")
-
+    result_label.config(text=f"Your Score: {score}/{len(problems[0])}")
 
 window = tk.Tk()
 window.geometry('1600x1000')
@@ -72,11 +58,12 @@ selected_option = tk.StringVar()
 image_frame = tk.Frame(window)
 image_frame.pack(side=tk.LEFT)
 
+
 # Display the initial image
-initial_image_data = questions[0]["question"]
-initial_image = Image.open(BytesIO(requests.get(initial_image_data).content))
-initial_image_display = ImageTk.PhotoImage(initial_image)
-label = tk.Label(image_frame, image=initial_image_display)
+image_data = problems[2][current_question_index]
+image = Image.open(image_data)
+image_display = ImageTk.PhotoImage(image)
+label = tk.Label(image_frame, image=image_display)
 label.pack()
 
 # Create a frame to hold the radio buttons
@@ -99,7 +86,7 @@ for _ in range(4):
 check_button = tk.Button(
     window,
     text="Check Answer",
-    command=check_answer,
+    command=select_option,
     font=("Comic Sans", 20),
 )
 check_button.pack()

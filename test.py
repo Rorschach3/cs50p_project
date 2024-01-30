@@ -18,7 +18,7 @@ def main():
     window.title("Image Viewer")
 
     # Load the image
-    image_path = "./images/image1.jpg"
+    image_path = "./images/image3.jpg"
     image = Image.open(image_path)
     photo = ImageTk.PhotoImage(image)
 

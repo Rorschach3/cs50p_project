@@ -8,7 +8,7 @@ def doSomething(event):
 window = Tk()
 
 
-window.bind(",Button-1>", doSomething)
+window.bind("<Button-1>", doSomething)
 window.bind("<Button-2>", doSomething)
 window.bind("<Button-3>", doSomething)
 
