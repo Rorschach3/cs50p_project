@@ -1,18 +1,21 @@
 
-def problems():
-    image_urls = [
-        "./images/image1.jpg",
-        "./images/image2.jpg",
-        "./images/image3.jpg",
-        "./images/image4.jpg",
-        "./images/image5.jpg",
-        "./images/image6.jpg",
-        "./images/image7.jpg",
-        "./images/image8.jpg",
-        "./images/image9.jpg"
-        ]
+def images():
+    image_urls = {
+        "image1": "./images/image1.jpg",
+        "image2": "./images/image2.jpg",
+        "image3": "./images/image3.jpg",
+        "image4": "./images/image4.jpg",
+        "image5": "./images/image5.jpg",
+        "image6": "./images/image6.jpg",
+        "image7": "./images/image7.jpg",
+        "image8": "./images/image8.jpg",
+        "image9": "./images/image9.jpg"
+    }
+    return image_urls
 
-    problems_data = {
+
+def problems():
+    problem_data = {
         "problem1": ["A: 5", "B: 10", "C: 15", "D: 20"],
         "problem2": ["A: 0", "B: 0.4", "C: 2", "D: 2.5"],
         "problem3": ["A: .999", "B: 1.22", "C: 0.066", "D: 0.333"],
@@ -26,10 +29,14 @@ def problems():
             "B: Fido says: Woof!",
             "C: says: Woof!",
             "D: Woof!"
-            ],
+        ],
     }
 
-    answers_data = [
+    return problem_data
+
+
+def answers():
+    answer_data = [
         "D",
         "D",
         "B",
@@ -41,4 +48,4 @@ def problems():
         "A"
     ]
 
-    return problems_data, answers_data, image_urls
+    return answer_data
