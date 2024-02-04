@@ -4,7 +4,7 @@ from tkinter import Tk, Button, LEFT
 import tkinter as tk
 from PIL import Image, ImageTk
 from flask import Flask, render_template
-from supabase import create_client, Client
+import sys
 
 class QuizApp:
     def __init__(self):
@@ -24,6 +24,7 @@ class QuizApp:
         ]
         self.current_photo = None
         self.label = None
+        # Images
         self.image_urls = [
             "./images/image1.jpg",
             "./images/image2.jpg",
@@ -39,57 +40,68 @@ class QuizApp:
         self.window.geometry('1000x1200')
         self.window.title('Assessment Test')
 
-    def click(self, label, photo):
+    # Click function
+    def click(self, label):
         if self.levels < 10:
-            self.levels = (self.levels + 1)
+            self.levels += 1
             image_path = self.image_urls[self.levels]
             new_image = Image.open(image_path)
             new_photo = ImageTk.PhotoImage(new_image)
             label.configure(image=new_photo)
             label.image = new_photo
+        else: # once the quiz is done
+            sys.exit() # exit the program
 
+
+    # Main function
     def main(self):
+        # from where the initial image is located
         initial_image_path = self.image_urls[self.current_question_index]
+        # creates image
         initial_image = Image.open(initial_image_path)
         initial_photo = ImageTk.PhotoImage(initial_image)
+        # creates label
         label = tk.Label(self.window, image=initial_photo)
         label.pack()
         
-        options = [
-            ["A: 5", "B: 10", "C: 15", "D: 20"],
-            ["A: 0", "B: 0.4", "C: 2", "D: 2.5"],
-            ["A: .999", "B: 1.22", "C: 0.066", "D: 0.333"],
-            ["A: 10", "B: 40", "C: 01", "D: 5"],
-            ["A: PYTH", "B: YHN", "C: ynh", "D: PTO"],
-            ["A: python", "B: PYTHON", "C: ''", "D: 'python'"],
-            ["A: 0", "B: 1", "C: 4", "D: 3"],
-            ["A: Line 3", "B: 3", "C: Line 4", "D: 4"],
-            ["A: Marley says: Woof!", "B: Fido says: Woof!", "C: says: Woof!", "D: Woof!"]
+        options = [  # options for each question
+            {"D": "20", "C": "15", "B": "10", "A": "5"},
+            {"D": "2.5", "C": "2", "B": "0.4", "A": "0"},
+            {"D": "0.333", "C": "0.066", "B": "1.22", "A": ".999"},
+            {"D": "5", "C": "01", "B": "40", "A": "10"},
+            {"D": "PTO", "C": "ynh", "B": "YHN", "A": "PYTH"},
+            {"D": "'python'", "C": "''", "B": "PYTHON", "A": "python"},
+            {"D": "3", "C": "4", "B": "1", "A": "0"},
+            {"D": "4", "C": "Line 4", "B": "3", "A": "Line 3"},
+            {"D": "Woof!", "C": "says: Woof!", "B": "Fido says: Woof!", "A": "Marley says: Woof!"}
         ]
-        
-        for index in range(len(options)):
-            for index in range(len(options[index])):
-                button = Button(
-                    self.window,
-                    text=options[index][index],
-                    command=partial(self.click, label, initial_image),
-                    font=("Helvetica Neue", 30),
-                    fg="white",
-                    bg="black",
-                    activeforeground="white",
-                    activebackground="black",
-                    width=8,
-                )
-                button.pack(side="right", padx=5, pady=5)
-            self.window.mainloop()
+        # Buttons
+        option_dict = options[self.current_question_index]
+        for key, value in option_dict.items():
+            button = Button(
+                self.window,
+                text=f"{key}:{value}",
+                command=partial(self.click, label),
+                font=("Helvetica Neue", 20),
+                fg="white",
+                bg="black",
+                width=10,
+                activeforeground="white",
+                activebackground="black"
+            )
+
+            button.pack(side="right", padx=5, pady=5, anchor="e")
+        self.window.mainloop()
 
 app = Flask(__name__)
 
+# Routes based on index.html
 @app.route('/')
 def home():
     return render_template('index.html')
 
+# helps to run the app
 if __name__ == '__main__':
     quiz_app = QuizApp()
     quiz_app.main()
-    app.run(debug=True, port=5500)
+    app.run(debug=True, port=5000)
