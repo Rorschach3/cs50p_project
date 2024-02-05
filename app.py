@@ -16,7 +16,18 @@ class QuizApp:
             "./images/image5.jpg", "./images/image6.jpg",
             "./images/image7.jpg", "./images/image8.jpg", "./images/image9.jpg"
         ]
-
+        self.count = 0
+        self.answer_data = [
+        "D",
+        "D",
+        "B",
+        "A",
+        "B",
+        "B",
+        "C",
+        "C",
+        "A"
+    ]
         self.options = [
             {"A": "5", "B": "10", "C": "15", "D": "20"},
             {"A": "0", "B": "0.4", "C": "2", "D": "2.5"},
@@ -65,7 +76,6 @@ class QuizApp:
 
     def handle_answer(self, answer):
         # Handle the logic to check answer, update score, and move to the next question
-        print("Answered with:", answer)
         self.current_question_index += 1
         if self.current_question_index < len(self.options):
             self.update_question()

@@ -2,11 +2,5 @@ Pillow==9.2.0
 tk==0.1.0
 virtualenv==20.24.7
 requests==2.31.0
-supabase==1.131.1
-supabase-py==0.0.2
-dotenv==1.0.0
-PostgREST==0.15.0
-postgres==4.0.0
+dotenv==0.0.5
 python==3.11.7
-postgresql==16.1.1
-pytest==7.4.2
