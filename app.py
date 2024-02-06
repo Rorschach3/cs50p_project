@@ -6,7 +6,7 @@ class QuizApp:
 
     def __init__(self):
         self.window = tk.Tk()
-        self.window.geometry('1000x1200')
+        self.window.geometry('1100x1200')
         self.window.title('Assessment Test')
 
         self.current_question_index = 0
@@ -34,7 +34,7 @@ class QuizApp:
             {"A": ".999", "B": "1.22", "C": "0.066", "D": "0.333"},
             {"A": "10", "B": "40", "C": "01", "D": "5"},
             {"A": "PYTH", "B": "YHN", "C": "ynh", "D": "PTO"},
-            {"A": "python", "B": "PYTHON", "C": "''", "D": "'python'"},
+            {"A": "python", "B": "PYTHON", "C": " '' ", "D": "'python'"},
             {"A": "0", "B": "1", "C": "4", "D": "3"},
             {"A": "Line 3", "B": "3", "C": "Line 4", "D": "4"},
             {"A": "Marley says: Woof!", "B": "Fido says: Woof!", "C": "says: Woof!", "D": "Woof!"}
@@ -66,13 +66,13 @@ class QuizApp:
                 self.window,
                 text=f"{key}: {value}",
                 command=lambda k=key: self.handle_answer(k),
-                font=("Helvetica Neue", 20),
+                font=("Helvetica Neue", 16),
                 fg="white",
                 bg="black",
-                width=10,
+                width=16,
                 activeforeground="white",
                 activebackground="black")
-            button.pack(side="left", padx=6, pady=6, anchor="center")
+            button.pack(side="left", padx=4, pady=4, anchor="center")
 
     def handle_answer(self, answer):
         # Handle the logic to check answer, update score, and move to the next question
