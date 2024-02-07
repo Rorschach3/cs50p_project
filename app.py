@@ -38,7 +38,12 @@ class PythonQuizApp:
             {"A": "python", "B": "PYTHON", "C": " '' ", "D": "'python'"},
             {"A": "0", "B": "1", "C": "4", "D": "3"},
             {"A": "Line 3", "B": "3", "C": "Line 4", "D": "4"},
-            {"A": "Marley says: Woof!", "B": "Fido says: Woof!", "C": "says: Woof!", "D": "Woof!"}
+            {
+                "A": "Marley says: Woof!",
+                "B": "Fido says: Woof!",
+                "C": "says: Woof!",
+                "D": "Woof!"
+                }
             ]
 
     def setup_gui(self):
@@ -100,5 +105,5 @@ class PythonQuizApp:
 
 
 if __name__ == '__main__':
-    python_quiz_app= PythonQuizApp()
+    python_quiz_app = PythonQuizApp()
     python_quiz_app.setup_gui()

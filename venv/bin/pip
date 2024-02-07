@@ -1,4 +1,4 @@
-#!/home/rorschache/CS50P_FinalProject/venv/bin/python3
+#!/home/rorschache/cs50p_project/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
