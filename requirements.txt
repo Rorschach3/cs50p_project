@@ -2,5 +2,3 @@ Pillow==9.2.0
 tk==0.1.0
 virtualenv==20.24.7
 requests==2.31.0
-dotenv==0.0.5
-python==3.11.7

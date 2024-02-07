@@ -4,5 +4,5 @@ __pycache__
 .github
 .conda
 supabase
-.venv
+venv
 __pycache__

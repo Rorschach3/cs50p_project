@@ -1,13 +1,12 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 
-
 class PythonQuizApp:
 
     def __init__(self):
         self.window = tk.Tk()
         self.window.geometry('1100x1200')
-        self.window.title('Assessment Test')
+        self.window.title('Python Quiz App')
 
         self.current_question_index = 0
         self.image_urls = [
@@ -38,71 +37,90 @@ class PythonQuizApp:
             {"A": "python", "B": "PYTHON", "C": " '' ", "D": "'python'"},
             {"A": "0", "B": "1", "C": "4", "D": "3"},
             {"A": "Line 3", "B": "3", "C": "Line 4", "D": "4"},
-            {
-                "A": "Marley says: Woof!",
-                "B": "Fido says: Woof!",
-                "C": "says: Woof!",
-                "D": "Woof!"
-                }
-            ]
+            {"A": "Marley says: Woof!", "B": "Fido says: Woof!", "C": "says: Woof!", "D": "Woof!"}
+        ]
 
     def setup_gui(self):
         self.update_question()
         self.window.mainloop()
 
     def update_question(self):
-        # Clear previous content
-        for widget in self.window.winfo_children():
-            widget.destroy()
+        if self.current_question_index < len(self.options):
+            # Clear previous content
+            for widget in self.window.winfo_children():
+                widget.destroy()
 
-        # Update the image
-        image_path = self.image_urls[self.current_question_index]
-        image = Image.open(image_path)
-        photo = ImageTk.PhotoImage(image)
+            # Update the image
+            image_path = self.image_urls[self.current_question_index]
+            image = Image.open(image_path)
+            photo = ImageTk.PhotoImage(image)
 
-        image_label = tk.Label(self.window, image=photo)
-        image_label.image = photo
-        image_label.pack()
+            image_label = tk.Label(self.window, image=photo)
+            image_label.image = photo
+            image_label.pack()
 
-        question_label = tk.Label(
-            self.window,
-            text="Running this code, what would the expected output be?",
-            font=("Helvetica Neue", 25),
-            fg="black")
-
-        question_label.pack(pady=6)  # Added padding
-
-        # Update options buttons
-        option_dict = self.options[self.current_question_index]
-
-        for key, value in option_dict.items():
-            button = tk.Button(
+            question_label = tk.Label(
                 self.window,
-                text=f"{key}: {value}",
-                command=lambda k=key: self.handle_answer(k),
-                font=("Helvetica Neue", 18),
-                fg="white",
-                bg="black",
-                width=16,
-                activeforeground="white",
-                activebackground="black")
-            button.pack(side="left", padx=4, pady=4, anchor="center")
+                text="Running this code, what would the expected output be?",
+                font=("Helvetica Neue", 25),
+                fg="black")
+            question_label.pack(pady=6)  # Added padding
+            
+            option_dict = self.options[self.current_question_index]
+            for key, value in option_dict.items():
+                button = tk.Button(
+                    self.window,
+                    text=f"{key}: {value}",
+                    command=lambda k=key: self.handle_answer(k),
+                    font=("Helvetica Neue", 16),
+                    fg="white",
+                    bg="black",
+                    width=16,
+                    activeforeground="white",
+                    activebackground="black")
+                button.pack(side="left", padx=4, pady=4, anchor="center")
+        else:
+            # When all questions have been answered, show the final score.
+            self.show_final_score()
 
     def handle_answer(self, answer):
-        # check answer, update score, and move to the next question
         correct_answer = self.answer_data[self.current_question_index]
         if answer == correct_answer:
             self.count += 1
 
         self.current_question_index += 1
+        self.update_question()
 
-        if self.current_question_index < len(self.options):
-            self.update_question()
-        else:
-            # Handle quiz completion
-            print(f"Score: {self.count}")
-            self.window.destroy()
+    def show_final_score(self):
+        # Clear previous content
+        for widget in self.window.winfo_children():
+            widget.destroy()
 
+        # Display final score
+        score_label = tk.Label(
+            self.window,
+            text=f"Your final score is: {self.count} / {len(self.options)}",
+            font=("Helvetica Neue", 30),
+            fg="black")
+        score_label.pack(pady=20)
+
+        # Optional: Add a button to restart the quiz
+        restart_button = tk.Button(
+            self.window,
+            text="Restart",
+            command=self.restart_quiz,
+            font=("Helvetica Neue", 16),
+            fg="white",
+            bg="black",
+            width=10,
+            activeforeground="white",
+            activebackground="gray")
+        restart_button.pack(pady=20)
+
+    def restart_quiz(self):
+        self.current_question_index = 0
+        self.count = 0
+        self.update_question()
 
 if __name__ == '__main__':
     python_quiz_app = PythonQuizApp()
