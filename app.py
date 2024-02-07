@@ -2,7 +2,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 
 
-class QuizApp:
+class PythonQuizApp:
 
     def __init__(self):
         self.window = tk.Tk()
@@ -14,20 +14,21 @@ class QuizApp:
             "./images/image1.jpg", "./images/image2.jpg",
             "./images/image3.jpg", "./images/image4.jpg",
             "./images/image5.jpg", "./images/image6.jpg",
-            "./images/image7.jpg", "./images/image8.jpg", "./images/image9.jpg"
+            "./images/image7.jpg", "./images/image8.jpg",
+            "./images/image9.jpg"
         ]
         self.count = 0
         self.answer_data = [
-                "D",
-                "D",
-                "B",
-                "A",
-                "B",
-                "B",
-                "C",
-                "C",
-                "A"
-                ]
+            "D",
+            "D",
+            "B",
+            "A",
+            "B",
+            "B",
+            "C",
+            "C",
+            "A"
+        ]
         self.options = [
             {"A": "5", "B": "10", "C": "15", "D": "20"},
             {"A": "0", "B": "0.4", "C": "2", "D": "2.5"},
@@ -54,9 +55,17 @@ class QuizApp:
         image = Image.open(image_path)
         photo = ImageTk.PhotoImage(image)
 
-        label = tk.Label(self.window, image=photo)
-        label.image = photo
-        label.pack()
+        image_label = tk.Label(self.window, image=photo)
+        image_label.image = photo
+        image_label.pack()
+
+        question_label = tk.Label(
+            self.window,
+            text="Running this code, what would the expected output be?",
+            font=("Helvetica Neue", 25),
+            fg="black")
+
+        question_label.pack(pady=6)  # Added padding
 
         # Update options buttons
         option_dict = self.options[self.current_question_index]
@@ -66,7 +75,7 @@ class QuizApp:
                 self.window,
                 text=f"{key}: {value}",
                 command=lambda k=key: self.handle_answer(k),
-                font=("Helvetica Neue", 16),
+                font=("Helvetica Neue", 18),
                 fg="white",
                 bg="black",
                 width=16,
@@ -75,16 +84,21 @@ class QuizApp:
             button.pack(side="left", padx=4, pady=4, anchor="center")
 
     def handle_answer(self, answer):
-        # Handle the logic to check answer, update score, and move to the next question
+        # check answer, update score, and move to the next question
+        correct_answer = self.answer_data[self.current_question_index]
+        if answer == correct_answer:
+            self.count += 1
+
         self.current_question_index += 1
+
         if self.current_question_index < len(self.options):
             self.update_question()
         else:
             # Handle quiz completion
-            print("Quiz Completed")
+            print(f"Score: {self.count}")
             self.window.destroy()
 
 
 if __name__ == '__main__':
-    quiz_app = QuizApp()
-    quiz_app.setup_gui()
+    python_quiz_app= PythonQuizApp()
+    python_quiz_app.setup_gui()
