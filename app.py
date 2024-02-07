@@ -1,10 +1,25 @@
 import tkinter as tk
+from tkinter import Menu
 from PIL import Image, ImageTk
+import webbrowser
+import sys
+
 
 class PythonQuizApp:
-
     def __init__(self):
         self.window = tk.Tk()
+
+        self.menubar = Menu(self.window)
+        self.window.config(menu=self.menubar)
+
+        self.fileMenu = Menu(self.menubar, tearoff=0, font=("Arial", 15))
+        self.menubar.add_cascade(label="File", menu=self.fileMenu)
+
+        self.fileMenu.add_command(label="Restart", command=self.restart_quiz)
+        self.fileMenu.add_separator()
+        self.fileMenu.add_command(label="Exit", command=self.close)
+        self.fileMenu.add_command(label="GitHub", command=self.github)
+
         self.window.geometry('1100x1200')
         self.window.title('Python Quiz App')
 
@@ -39,6 +54,23 @@ class PythonQuizApp:
             {"A": "Line 3", "B": "3", "C": "Line 4", "D": "4"},
             {"A": "Marley says: Woof!", "B": "Fido says: Woof!", "C": "says: Woof!", "D": "Woof!"}
         ]
+        self.skill_level = [
+            "Newbie",
+            "Beginner",
+            "Beginner Intermediate",
+            "Beginner Advanced",
+            "Intermediate",
+            "Intermediate Advanced",
+            "Advanced Beginner",
+            "Advanced Intermediate",
+            "Expert"
+        ]
+
+    def close(self):
+        sys.exit()
+
+    def github(self):
+        webbrowser.open_new_tab('https://github.com/rorschach3/cs50p_project')
 
     def setup_gui(self):
         self.update_question()
@@ -65,7 +97,7 @@ class PythonQuizApp:
                 font=("Helvetica Neue", 25),
                 fg="black")
             question_label.pack(pady=6)  # Added padding
-            
+
             option_dict = self.options[self.current_question_index]
             for key, value in option_dict.items():
                 button = tk.Button(
@@ -99,7 +131,7 @@ class PythonQuizApp:
         # Display final score
         score_label = tk.Label(
             self.window,
-            text=f"Your final score is: {self.count} / {len(self.options)}",
+            text=f"Final Score: {self.count} / {len(self.options)} \n Your Python skill level is: {self.skill_level[max(0, self.count - 1)]}",
             font=("Helvetica Neue", 30),
             fg="black")
         score_label.pack(pady=20)
@@ -107,7 +139,7 @@ class PythonQuizApp:
         # Optional: Add a button to restart the quiz
         restart_button = tk.Button(
             self.window,
-            text="Restart",
+            text="Restart Quiz",
             command=self.restart_quiz,
             font=("Helvetica Neue", 16),
             fg="white",
@@ -121,6 +153,7 @@ class PythonQuizApp:
         self.current_question_index = 0
         self.count = 0
         self.update_question()
+
 
 if __name__ == '__main__':
     python_quiz_app = PythonQuizApp()
