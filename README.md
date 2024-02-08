@@ -1,47 +1,51 @@
 ---
 runme:
-  id: 01HNN1Q2SSPFD3ESFEN05R3Z1W
+  id: 01HP1EHWQZSVZ1FVJSNKFXTYG5
   version: v2.2
 ---
 
-Accessing Supabase dashboard#
-You can access the Supabase Dashboard through the API gateway on port 8000. For example: http://:8000, or localhost:8000 if you are running Docker locally.
+# CS50P Project
 
-You will be prompted for a username and password. By default, the credentials are:
+A python based quiz that tests your Python skills by answering a set of questions regarding code. Once you complete the quiz your skill level will be presented to you.
 
-    Username: supabase
-    Password: this_password_is_insecure_and_should_be_updated
-You should change these credentials as soon as possible using the instructions below.
+The project is a GUI based project and uses Python's Tkinter to createa GUI when your run the program. The program is also listed as a .exe executable file that was just converted to .exe from python.
 
-##### change directory to project folder, and create a virtual environment
+## Project Features
 
-`cd project`
-`python3 -m venv venv`
-`source venv/bin/activate`  # On Windows, use `venv\Scripts\activate`
+The project is a GUI based project and uses Python's Tkinter to createa GUI when your run the program. The program is also listed as a .exe executable file that was just converted to .exe from python.
 
-##### install program requiremnts.txt
+## Installation
 
-`pip install -r requirements.txt`
+1. copy the repository from github:
 
-##### Get the code
-    `git clone --depth 1 https://github.com/supabase/supabase`
+```markdown {"id":"01HP1EHWQZSVZ1FVJSNGYS5Q93"}
+git clone https://github.com/Rorschach3/cs50p_project.git
 
-##### Go to the docker folder
-    `cd supabase/docker`
+```
 
-##### Copy the fake env vars
-    `cp .env.example .env`
+2. change directories into project directory:
+   `cd cs50p_project`
+3. create a virtual environment and activate it:
 
-##### Pull the latest images
-    `docker compose pull`
+   ```python
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
 
-##### Start the services (in detached mode)
-    `docker compose up -d`
+#On Windows, use:
 
-Whenever restarting the service or continuing the development, you can start the services with the following command:
+    venv\Scripts\activate
 
-##### pull the latest images
-    `docker-compose pull`
+4. install the required packages:
+   `pip install -r requirements.txt`
 
-##### start the services
-    `docker-compose up -d`
+5. run program:
+   `python project.py`
+
+## Demo
+
+Demo screenshots of the quiz in action:
+
+![Answering Quiz Questions](https://i.ibb.co/rMt2s3L/Python-Quiz1.png)
+
+![Example of skill level](https://i.ibb.co/F4fy4NT/Python-quiz-score.png)
