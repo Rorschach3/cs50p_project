@@ -49,3 +49,13 @@ Demo screenshots of the quiz in action:
 ![Answering Quiz Questions](https://i.ibb.co/rMt2s3L/Python-Quiz1.png)
 
 ![Example of skill level](https://i.ibb.co/F4fy4NT/Python-quiz-score.png)
+
+## Tech Stack
+Rorschach3/cs50p_project is built on the following main stack:
+
+- <img width='25' height='25' src='https://img.stackshare.io/service/993/pUBY5pVj.png' alt='Python'/> [Python](https://www.python.org) – Languages
+- <img width='25' height='25' src='https://img.stackshare.io/service/2375/default_1f67b0ca7416a9f52beb655f90b5602d5ef74b75.jpg' alt='Pillow'/> [Pillow](https://python-pillow.github.io/) – Image Processing and Management
+- <img width='25' height='25' src='https://img.stackshare.io/service/3681/powershell-logo.png' alt='PowerShell'/> [PowerShell](https://docs.microsoft.com/en-us/powershell/) – Shells
+- <img width='25' height='25' src='https://img.stackshare.io/service/4631/default_c2062d40130562bdc836c13dbca02d318205a962.png' alt='Shell'/> [Shell](https://en.wikipedia.org/wiki/Shell_script) – Shells
+
+Full tech stack [here](/techstack.md)
